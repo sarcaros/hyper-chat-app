@@ -6,8 +6,9 @@ on:
       - dev
 
 env:
+  WORKING_DIRECTORY: api
   AZURE_WEBAPP_NAME: hyper-chat-app # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: "api" # set this to the path to your web app project, defaults to the repository root
+  AZURE_WEBAPP_PACKAGE_PATH: "./" # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: "8.0.x" # set this to the dot net version to use
 
 jobs:
@@ -27,9 +28,9 @@ jobs:
       # Run dotnet build and publish
       - name: dotnet build and publish
         run: |
-          dotnet restore ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-          dotnet build ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} --configuration Release
-          dotnet publish ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+          dotnet restore
+          dotnet build --configuration Release
+          dotnet publish -c Release -o myapp
 
       # Deploy to Azure Web apps
       - name: "Run Azure webapp deploy action using publish profile credentials"
@@ -37,4 +38,4 @@ jobs:
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }} # Replace with your app name
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
-          package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp"
+          package: "./myapp"
