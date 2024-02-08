@@ -1,9 +1,7 @@
-using Ardalis.SharedKernel;
 using Autofac;
+using HyperChatApp.Core.Interfaces;
 using HyperChatApp.Infrastructure.Auth;
 using HyperChatApp.Infrastructure.Data;
-using MediatR;
-using MediatR.Pipeline;
 
 namespace HyperChatApp.Infrastructure;
 
@@ -24,8 +22,8 @@ public class InfrastructureModule : Module
   private void RegisterServices(ContainerBuilder builder)
   {
     builder
-      .RegisterType<UserAuthService>()
-      .As<IUserAuthService>()
+      .RegisterType<UserInfoService>()
+      .As<IUserInfoService>()
       .SingleInstance();
   }
 }

@@ -1,30 +1,29 @@
 using System.Collections.Concurrent;
+using HyperChatApp.Core.Interfaces;
 using HyperChatApp.Infrastructure.Data;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 namespace HyperChatApp.Infrastructure.Auth;
 
-public class UserAuthService(AppDbContext _db)
-  : IUserAuthService
+public class UserInfoService(AppDbContext _db)
+  : IUserInfoService
 {
   private readonly ConcurrentDictionary<string, int> _mapping = new ConcurrentDictionary<string, int>();
 
-  public async Task<int?> GetUserIdAsync(string authUserId)
+  public async Task<int?> GetUserIdByPublicIdAsync(string publicUserId)
   {
-    if (_mapping.TryGetValue(authUserId, out var id))
+    if (_mapping.TryGetValue(publicUserId, out var id))
     {
       return id;
     }
 
-    var result = await _db.UserInfos.Where(x => x.AuthUserId == authUserId)
-      .Select(x => x.Id)
-      .FirstOrDefaultAsync();
+    var result = await _db.Database.SqlQuery<int>($"SELECT Id FROM UserInfos WHERE PublicId = {publicUserId}").ToListAsync();
 
-    if (result > 0)
+    if (result.Count == 1)
     {
-      _mapping.TryAdd(authUserId, result);
-      return result;
+      var resolvedId = result.First();
+      _mapping.TryAdd(publicUserId, resolvedId);
+      return resolvedId;
     }
 
     return null;

@@ -43,12 +43,7 @@ public class Room(string name) : EntityBase, IAggregateRoot
     _roomAccesses.Add(new(userId, AccessLevel.Write));
   }
 
-  public void BanUserFromRoom(int userId)
-  {
-    throw new NotImplementedException();
-  }
-
-  private RoomAccess? GetUserAccess(int userId)
+  public RoomAccess? GetUserAccess(int userId)
     => RoomAccesses.SingleOrDefault(x => x.UserId == userId);
 
   private RoomAccess? OwnerAccess
