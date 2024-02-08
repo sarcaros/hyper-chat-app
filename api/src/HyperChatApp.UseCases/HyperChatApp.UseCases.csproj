@@ -7,6 +7,6 @@
     <PackageReference Include="MediatR" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HyperChatApp.core\HyperChatApp.Core.csproj" />
+    <ProjectReference Include="..\HyperChatApp.Core\HyperChatApp.Core.csproj" />
   </ItemGroup>
 </Project>
