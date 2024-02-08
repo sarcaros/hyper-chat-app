@@ -9,4 +9,5 @@ public class Message(int userId, int roomId, string content) : EntityBase, IAggr
   public int RoomId { get; private set; } = roomId;
   public string Content { get; private set; } = content;
   public string PublicId { get; private set; } = "m_" + Nanoid.Generate();
+  public DateTimeOffset Time { get; private set; } = TimeProvider.System.GetUtcNow();
 }

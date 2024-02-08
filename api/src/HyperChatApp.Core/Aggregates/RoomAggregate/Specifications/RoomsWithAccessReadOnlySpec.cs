@@ -7,6 +7,7 @@ public class RoomsWithAccessReadOnlySpec : Specification<Room>
   public RoomsWithAccessReadOnlySpec(int userId)
   {
     Query
+      .AsNoTracking()
       .Where(x => x.RoomAccesses.Any(a => a.UserId == userId && a.AccessLevel != AccessLevel.Banned));
   }
 }
