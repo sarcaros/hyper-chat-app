@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperChatApp.Core", "src\HyperChatApp.Core\HyperChatApp.Core.csproj", "{C0191296-C62C-48A6-A9E6-F5F443B161C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperChatApp.Infrastructure", "src\HyperChatApp.Infrastructure\HyperChatApp.Infrastructure.csproj", "{79D74ADA-45D0-432B-A099-983B8DFD28B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperChatApp.UseCases", "src\HyperChatApp.UseCases\HyperChatApp.UseCases.csproj", "{D6EC4B4F-6BDF-4AEB-85BB-C7A2DD1A79FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HyperChatApp.Web", "src\HyperChatApp.Web\HyperChatApp.Web.csproj", "{49470863-54B8-4D11-8F70-BFD52691F5B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0191296-C62C-48A6-A9E6-F5F443B161C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0191296-C62C-48A6-A9E6-F5F443B161C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0191296-C62C-48A6-A9E6-F5F443B161C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0191296-C62C-48A6-A9E6-F5F443B161C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79D74ADA-45D0-432B-A099-983B8DFD28B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79D74ADA-45D0-432B-A099-983B8DFD28B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79D74ADA-45D0-432B-A099-983B8DFD28B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79D74ADA-45D0-432B-A099-983B8DFD28B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6EC4B4F-6BDF-4AEB-85BB-C7A2DD1A79FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6EC4B4F-6BDF-4AEB-85BB-C7A2DD1A79FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6EC4B4F-6BDF-4AEB-85BB-C7A2DD1A79FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6EC4B4F-6BDF-4AEB-85BB-C7A2DD1A79FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49470863-54B8-4D11-8F70-BFD52691F5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49470863-54B8-4D11-8F70-BFD52691F5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49470863-54B8-4D11-8F70-BFD52691F5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49470863-54B8-4D11-8F70-BFD52691F5B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
