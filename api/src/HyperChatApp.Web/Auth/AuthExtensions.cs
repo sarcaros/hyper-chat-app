@@ -5,13 +5,10 @@ namespace HyperChatApp.Web.Auth;
 
 public static class AuthExtensions
 {
-  public static int? GetInternalId(this ClaimsPrincipal user)
+  public static int GetInternalId(this ClaimsPrincipal user)
   {
-    var id = user.ClaimValue("subint");
-
-    return string.IsNullOrEmpty(id)
-      ? null
-      : Convert.ToInt32(id);
+    var id = user.ClaimValue("subint") ?? throw new InternalIdClaimNotFound();
+    return Convert.ToInt32(id);
   }
 
   public static IServiceCollection AddJwtAuth(this IServiceCollection sc, string tokenSigningKey, string? keyIssuer = null)
@@ -23,4 +20,7 @@ public static class AuthExtensions
       bearer.TokenValidationParameters.ValidIssuer = keyIssuer;
     });
   }
+
+  public class InternalIdClaimNotFound : InvalidOperationException
+  { }
 }

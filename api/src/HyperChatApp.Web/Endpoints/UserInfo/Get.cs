@@ -18,13 +18,7 @@ public class GetUserInfo(IMediator _mediator)
   public override async Task HandleAsync(EmptyRequest req, CancellationToken ct)
   {
     var userId = User.GetInternalId();
-    if (!userId.HasValue)
-    {
-      await SendNotFoundAsync(ct);
-      return;
-    }
-
-    var result = await _mediator.Send(new GetUserInfoQuery(userId.Value));
+    var result = await _mediator.Send(new GetUserInfoQuery(userId));
 
     if (result.Status == ResultStatus.NotFound)
     {
