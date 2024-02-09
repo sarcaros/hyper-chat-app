@@ -9,6 +9,8 @@ public class RoomAccess(int userId, AccessLevel accessLevel) : EntityBase, IAggr
   public AccessLevel AccessLevel { get; private set; } = accessLevel;
 
   public bool IsAdmin => AccessLevel == AccessLevel.Mod || AccessLevel == AccessLevel.Owner;
+  public bool CanWrite => IsAdmin || AccessLevel == AccessLevel.Write;
+  public bool CanRead => AccessLevel != AccessLevel.Banned;
 
   public void UpdateAccessLevel(AccessLevel newLevel)
   {

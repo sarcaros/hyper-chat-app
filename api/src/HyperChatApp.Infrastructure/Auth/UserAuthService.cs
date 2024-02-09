@@ -8,11 +8,12 @@ namespace HyperChatApp.Infrastructure.Auth;
 public class UserInfoService(AppDbContext _db)
   : IUserInfoService
 {
-  private readonly ConcurrentDictionary<string, int> _mapping = new ConcurrentDictionary<string, int>();
+  private readonly ConcurrentDictionary<string, int> _publicToInternalIdMapping = new();
+  private readonly ConcurrentDictionary<int, string> _internalToPublicIdMapping = new();
 
   public async Task<int?> GetUserIdByPublicIdAsync(string publicUserId)
   {
-    if (_mapping.TryGetValue(publicUserId, out var id))
+    if (_publicToInternalIdMapping.TryGetValue(publicUserId, out var id))
     {
       return id;
     }
@@ -22,7 +23,28 @@ public class UserInfoService(AppDbContext _db)
     if (result.Count == 1)
     {
       var resolvedId = result.First();
-      _mapping.TryAdd(publicUserId, resolvedId);
+      _publicToInternalIdMapping.TryAdd(publicUserId, resolvedId);
+      _internalToPublicIdMapping.TryAdd(resolvedId, publicUserId);
+      return resolvedId;
+    }
+
+    return null;
+  }
+
+  public async Task<string?> GetUserPublicIdByIdAsync(int userId)
+  {
+    if (_internalToPublicIdMapping.TryGetValue(userId, out var publicId))
+    {
+      return publicId;
+    }
+
+    var result = await _db.Database.SqlQuery<string>($"SELECT PublicId FROM UserInfos WHERE Id = {userId}").ToListAsync();
+
+    if (result.Count == 1)
+    {
+      var resolvedId = result.First();
+      _internalToPublicIdMapping.TryAdd(userId, resolvedId);
+      _publicToInternalIdMapping.TryAdd(resolvedId, userId);
       return resolvedId;
     }
 

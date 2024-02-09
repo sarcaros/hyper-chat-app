@@ -16,7 +16,8 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
       .HasMaxLength(ModelConstants.PublicIdLength)
       .IsRequired();
 
-    builder.HasIndex(p => p.RoomId, "IDX_MESSAGE_ROOMID").IsUnique();
+    builder.HasIndex(p => p.RoomId, "IDX_MESSAGE_ROOMID");
+    builder.HasIndex(p => p.Time, "IDX_MESSAGE_TIME_DESC").IsDescending();
   }
 }
 
