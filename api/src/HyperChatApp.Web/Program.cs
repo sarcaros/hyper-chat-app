@@ -13,6 +13,7 @@ using HyperChatApp.Core;
 using HyperChatApp.UseCases;
 using HyperChatApp.Infrastructure;
 using HyperChatApp.Web.Auth;
+using HyperChatApp.Web.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,8 @@ builder.Services.Configure<ServiceConfig>(config =>
   config.Services = new List<ServiceDescriptor>(builder.Services);
 });
 
+builder.Services.AddSignalR();
+
 // register Autofac DI container
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
@@ -83,6 +86,8 @@ app.UseHttpsRedirection();
 app.UseFastEndpoints();
 app.UseOpenApi();
 app.UseSwaggerUI(x => x.EnableTryItOutByDefault());
+
+app.MapHub<ChatHub>("/hubs-chat");
 
 MigrateDatabase(app);
 

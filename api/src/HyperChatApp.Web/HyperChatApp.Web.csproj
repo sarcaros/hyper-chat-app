@@ -21,6 +21,7 @@
     <PackageReference Include="FastEndpoints.Swagger" />
     <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
