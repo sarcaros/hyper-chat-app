@@ -57,7 +57,11 @@ builder.Services.Configure<ServiceConfig>(config =>
   config.Services = new List<ServiceDescriptor>(builder.Services);
 });
 
-builder.Services.AddSignalR();
+var signalRBuilder = builder.Services.AddSignalR();
+// if (!string.IsNullOrEmpty(builder.Configuration["Azure:SignalR:ConnectionString"]))
+// {
+//   signalRBuilder.AddAzureSignalR();
+// }
 
 // register Autofac DI container
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
