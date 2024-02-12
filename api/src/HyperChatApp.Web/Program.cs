@@ -66,6 +66,20 @@ builder.Services.SwaggerDocument(doc =>
   };
 });
 
+string? clerkApiKey = builder.Configuration["Auth:ClerkApiKey"];
+Guard.Against.NullOrEmpty(clerkApiKey);
+
+builder.Services.AddHttpClient("clerk",
+c =>
+{
+  /*curl -XPATCH -H 'Authorization: Bearer CLERK_SECRET_KEY' -H "Content-type: application/json" -d '{
+"public_metadata": {
+  "role": "shopper"
+}
+}' 'https://api.clerk.com/v1/users/{user_id}/metadata'*/
+  c.BaseAddress = new Uri("https://api.clerk.com/v1/");
+  c.DefaultRequestHeaders.Add("Authorization", $"Bearer {clerkApiKey}");
+});
 
 builder.Services.Configure<ServiceConfig>(config =>
 {

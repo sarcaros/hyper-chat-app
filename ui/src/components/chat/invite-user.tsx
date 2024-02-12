@@ -10,7 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Loader2, MailPlus } from "lucide-react";
+import { Loader2, UserPlus } from "lucide-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,15 +27,15 @@ import {
 const fakeApiCall = () => new Promise((resolve) => setTimeout(resolve, 3000));
 
 const formSchema = z.object({
-  roomName: z.string().min(3).max(30),
+  userName: z.string().min(3).max(30),
 });
 
-export default function RoomCreate() {
+export default function InviteUser() {
   const [open, setOpen] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      roomName: "",
+      userName: "",
     },
   });
 
@@ -46,30 +46,30 @@ export default function RoomCreate() {
   };
 
   return (
-    <div className="flex flex-col gap-4 py-2">
-      <nav className="grid gap-1 px-2">
+    <div className="flex flex-col gap-4">
+      <nav className="grid gap-1">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button
-              variant={"outline"}
-              size={"sm"}
+              variant={"link"}
+              size={"default"}
               className={cn("justify-start")}
             >
-              <MailPlus className="mr-2 h-4 w-4" />
-              Create Room
+              <UserPlus className="mr-2 h-4 w-4" />
+              Invite user
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px]">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)}>
                 <DialogHeader>
-                  <DialogTitle>Create Room</DialogTitle>
-                  <DialogDescription>Create a new room here.</DialogDescription>
+                  <DialogTitle>Invite user</DialogTitle>
+                  <DialogDescription>Enter user name.</DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <FormField
                     control={form.control}
-                    name="roomName"
+                    name="userName"
                     render={({ field }) => (
                       <FormItem>
                         <div className="grid grid-cols-4 items-center gap-4">
@@ -89,11 +89,11 @@ export default function RoomCreate() {
                 </div>
                 <DialogFooter>
                   {form.formState.isSubmitting === false ? (
-                    <Button type="submit">Create</Button>
+                    <Button type="submit">Invite</Button>
                   ) : (
                     <Button disabled type="submit">
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Create
+                      Invite
                     </Button>
                   )}
                 </DialogFooter>

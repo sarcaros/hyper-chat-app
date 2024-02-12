@@ -6,7 +6,7 @@ export default function SignIn() {
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       <div>
-        <ClerkSignInButton>
+        <ClerkSignInButton afterSignUpUrl="?after-register">
           <Button>
             <KeyRound className="mr-2 h-4 w-4" />
             Sign in
