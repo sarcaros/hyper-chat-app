@@ -30,6 +30,20 @@ string? dbConnectionString = builder.Configuration.GetConnectionString("DefaultC
 Guard.Against.Null(dbConnectionString);
 builder.Services.AddDbContexts(dbConnectionString);
 
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy(
+    name: "mycors",
+    policy =>
+    {
+      policy//.WithOrigins("https://localhost:3000")
+                    .AllowAnyHeader()
+                    .SetIsOriginAllowed(_ => true)
+                    .AllowAnyMethod()
+                   .AllowCredentials();
+    });
+});
+
 builder.Services
   .AddFastEndpoints()
   .AddFastEndpointsApiExplorer();
@@ -52,16 +66,13 @@ builder.Services.SwaggerDocument(doc =>
   };
 });
 
+
 builder.Services.Configure<ServiceConfig>(config =>
 {
   config.Services = new List<ServiceDescriptor>(builder.Services);
 });
 
 var signalRBuilder = builder.Services.AddSignalR();
-// if (!string.IsNullOrEmpty(builder.Configuration["Azure:SignalR:ConnectionString"]))
-// {
-//   signalRBuilder.AddAzureSignalR();
-// }
 
 // register Autofac DI container
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
@@ -87,9 +98,14 @@ else
 
 app.UseHttpsRedirection();
 
+app.UseCors("mycors");
+
 app.UseFastEndpoints();
 app.UseOpenApi();
-app.UseSwaggerUI(x => x.EnableTryItOutByDefault());
+app.UseSwaggerUI(x =>
+{
+  x.EnableTryItOutByDefault();
+});
 
 app.MapHub<ChatHub>("/hubs-chat");
 

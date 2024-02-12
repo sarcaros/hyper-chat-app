@@ -25,7 +25,7 @@ public static class AuthExtensions
         {
           var token = ctx.Request.Query["access_token"];
           var path = ctx.HttpContext.Request.Path;
-          if (!string.IsNullOrEmpty(token) && path.StartsWithSegments("/hubs-"))
+          if (!string.IsNullOrEmpty(token) && path.StartsWithSegments("/hubs-chat"))
           {
             // Read the token out of the query string
             ctx.Token = token;

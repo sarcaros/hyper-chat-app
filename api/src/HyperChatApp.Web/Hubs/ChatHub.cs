@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace HyperChatApp.Web.Hubs;
 
-[Authorize]
 public class ChatHub : Hub
 {
+  [Authorize]
   public async Task SendMessageToRoom(string publicRoomId, string content, [FromServices] IMediator _mediator)
   {
     var userId = Context.User.GetInternalId();
@@ -24,6 +24,7 @@ public class ChatHub : Hub
     await Clients.Caller.SendAsync("SendMessage", new MessageContentRecord($"Error processing message - {result.Status}", "!", TimeProvider.System.GetUtcNow()));
   }
 
+  [Authorize]
   public async Task JoinRoom(string roomPublicId)
   {
     var userId = Context.User.GetInternalId();
@@ -31,6 +32,7 @@ public class ChatHub : Hub
     await SendMessageToRoomWithoutSave(roomPublicId, new($"{Context.ConnectionId} - {userId} has joined the group {roomPublicId}.", "#", TimeProvider.System.GetUtcNow()));
   }
 
+  [Authorize]
   public async Task LeaveRoom(string roomPublicId)
   {
     var userId = Context.User.GetInternalId();
